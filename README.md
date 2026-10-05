@@ -22,12 +22,30 @@ Referencias:
 - IUPAC, Inverse square law: https://goldbook.iupac.org/terms/view/I03145
 - OIEA, Radiation Protection in Nuclear Medicine, TCS 40: https://www-pub.iaea.org/MTCD/Publications/PDF/TCS-40_web.pdf
 
-## Publicar posteriormente
-No se ha publicado. Después de revisar contenido, fórmulas y diseño:
-1. Copia estos archivos al repositorio de GitHub acordado.
-2. Usa un alojamiento estático, por ejemplo GitHub Pages, configurando la rama y carpeta que contengan index.html.
-3. Conserva los enlaces relativos de assets/ y comprueba navegación, móvil y calculadora en la URL final.
-No requiere compilación, servidor de aplicación ni claves. Repositorio clonado: https://github.com/wjavierct/radioproteccion-latam.git. La copia local del proyecto y su historial Git están en C:\Users\SOLCA\Documents\Codex\radioproteccion-latam. No se ha hecho commit ni push.
+## Desplegar en Cloudflare Workers Static Assets
+El proyecto usa Workers Static Assets, sin Workers Sites ni KV. wrangler.jsonc define el nombre radioproteccion-latam, la fecha de compatibilidad 2026-10-05 y assets.directory como "." para servir los archivos web desde la raíz. No requiere script Worker ni compilación.
+
+Con Node.js y npm instalados, ejecuta desde la raíz del proyecto:
+
+    npx wrangler@4 login
+    npx wrangler@4 dev
+
+Para validar el paquete sin desplegar:
+
+    npx wrangler@4 deploy --dry-run
+
+Para publicar cuando lo decidas:
+
+    npx wrangler@4 deploy
+
+Si conectas el repositorio mediante Cloudflare Workers Builds, usa como comando de despliegue npx wrangler@4 deploy, con la raíz del repositorio como directorio del proyecto y sin paso de compilación.
+
+.assetsignore excluye del despliegue el historial Git, configuración, documentación, dependencias y archivos locales de credenciales; estos archivos permanecen en el proyecto. index.html y assets/ se sirven como contenido estático. El navegador realiza los cálculos.
+
+Documentación: https://developers.cloudflare.com/workers/static-assets/
+Repositorio: https://github.com/wjavierct/radioproteccion-latam.git
+Carpeta local: C:\Users\SOLCA\Documents\Codex\radioproteccion-latam.
+Preparar la configuración y enviar commits a GitHub no ejecuta un despliegue de Cloudflare desde esta terminal.
 
 ## Revisión
 La comprobación numérica incluye duplicar y reducir a la mitad la distancia, distancias iguales, tasa cero, datos inválidos y extremos numéricos. El contenido especializado y regulatorio deberá ampliarse con revisión documental.

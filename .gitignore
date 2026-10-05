@@ -1,0 +1,9 @@
+# Archivos locales y temporales
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+.env
+.env.*
+!.env.example
+node_modules/
